@@ -175,6 +175,68 @@
   0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
   100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
 }
+@keyframes flame-flicker {
+  0%, 100% { transform: scale(1) translateY(0) rotate(-1deg); opacity: 0.95; }
+  25% { transform: scale(1.06) translateY(-2px) rotate(1.5deg); opacity: 1; }
+  50% { transform: scale(0.97) translateY(1px) rotate(-1.5deg); opacity: 0.9; }
+  75% { transform: scale(1.04) translateY(-1px) rotate(1deg); opacity: 1; }
+}
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes blur-in {
+  from { opacity: 0; filter: blur(12px); transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+}
+@keyframes shimmer-pan {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 48px 48px; }
+}
+@keyframes sweep {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+
+@utility animate-flame { animation: flame-flicker 1.4s ease-in-out infinite; }
+@utility animate-float { animation: float-soft 5s ease-in-out infinite; }
+@utility animate-blur-in { animation: blur-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility animate-grid-drift { animation: grid-drift 8s linear infinite; }
+@utility shimmer-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-foreground) 20%,
+    var(--color-primary) 45%,
+    var(--color-accent) 60%,
+    var(--color-foreground) 80%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-pan 4.5s linear infinite;
+}
+@utility grid-backdrop {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+@utility card-hover {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  &:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--color-primary) 55%, transparent);
+    box-shadow: var(--shadow-glow);
+  }
+}
 
 @utility animate-pop-in { animation: pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
 @utility animate-rise { animation: rise 0.5s ease-out both; }
@@ -207,5 +269,21 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 35%, transparent);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
