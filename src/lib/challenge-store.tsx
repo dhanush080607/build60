@@ -24,6 +24,8 @@ export type DayState = {
 export type AppState = {
   profileId: string | null;
   selectedTrack: string | null;
+  goal: string;
+  onboarded: boolean;
   days: Record<string, DayState>;
 };
 
@@ -38,7 +40,13 @@ export const emptyDay = (): DayState => ({
   completedAt: null,
 });
 
-const initialState: AppState = { profileId: null, selectedTrack: null, days: {} };
+const initialState: AppState = {
+  profileId: null,
+  selectedTrack: null,
+  goal: "",
+  onboarded: false,
+  days: {},
+};
 
 export const challenge = challengeData;
 export const student = studentData;
@@ -76,6 +84,8 @@ type Ctx = {
   profile: typeof studentData | null;
   startChallenge: () => void;
   selectTrack: (id: string) => void;
+  completeOnboarding: (track: string, goal: string) => void;
+  resetOnboarding: () => void;
   getDay: (day: number) => DayState;
   updateDay: (day: number, patch: Partial<DayState>) => void;
   toggleTask: (day: number, taskId: string) => void;
@@ -170,6 +180,20 @@ export function ChallengeProvider({ children }: { children: ReactNode }) {
     setState((prev) => ({ ...prev, selectedTrack: prev.selectedTrack === id ? null : id }));
   }, []);
 
+  const completeOnboarding = useCallback((track: string, goal: string) => {
+    setState((prev) => ({
+      ...prev,
+      profileId: prev.profileId ?? studentData.id,
+      selectedTrack: track,
+      goal: goal.trim() || studentData.goal,
+      onboarded: true,
+    }));
+  }, []);
+
+  const resetOnboarding = useCallback(() => {
+    setState((prev) => ({ ...prev, onboarded: false }));
+  }, []);
+
   const resetAll = useCallback(() => setState(initialState), []);
 
   const value = useMemo<Ctx>(
@@ -179,6 +203,8 @@ export function ChallengeProvider({ children }: { children: ReactNode }) {
       profile: state.profileId ? studentData : null,
       startChallenge,
       selectTrack,
+      completeOnboarding,
+      resetOnboarding,
       getDay,
       updateDay,
       toggleTask,
@@ -191,6 +217,8 @@ export function ChallengeProvider({ children }: { children: ReactNode }) {
       state,
       startChallenge,
       selectTrack,
+      completeOnboarding,
+      resetOnboarding,
       getDay,
       updateDay,
       toggleTask,
