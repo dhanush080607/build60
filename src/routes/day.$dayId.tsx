@@ -193,8 +193,8 @@ function DayPage() {
     <div className="min-h-screen">
       <Confetti show={celebrate} />
 
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-4">
+      <header className="sticky top-0 z-40 border-b border-border bg-background/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4">
           <Link to="/dashboard" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
             <ArrowLeft className="size-4" /> Dashboard
           </Link>
@@ -204,10 +204,10 @@ function DayPage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-4xl space-y-6 px-5 py-10">
-        <section className="surface-panel p-6">
+      <main className="mx-auto max-w-4xl space-y-4 px-4 py-6 sm:space-y-6 sm:px-5 sm:py-10">
+        <section className="surface-panel p-5 sm:p-6 animate-blur-in">
           <p className="font-mono text-xs text-primary">DAY {day} · {content.focus}</p>
-          <h1 className="mt-2 text-3xl font-bold">{content.title}</h1>
+          <h1 className="mt-2 text-2xl font-bold sm:text-3xl">{content.title}</h1>
           <p className="mt-3 text-muted-foreground">{content.brief}</p>
           <div className="mt-5 flex flex-wrap items-center gap-4">
             <span className="rounded-full bg-secondary px-3 py-1 font-mono text-xs">{content.estimate}</span>
@@ -238,7 +238,7 @@ function DayPage() {
           )}
         </section>
 
-        <section className="surface-panel p-6">
+        <section className="surface-panel p-5 sm:p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Task checklist</h2>
             <span className="font-mono text-xs text-muted-foreground">
@@ -278,8 +278,8 @@ function DayPage() {
           </ul>
         </section>
 
-        <section id="submission" className="grid gap-6 scroll-mt-20 md:grid-cols-2">
-          <form onSubmit={submitGithub} className="surface-panel space-y-4 p-6" noValidate>
+        <section id="submission" className="grid gap-4 scroll-mt-20 sm:gap-6 md:grid-cols-2">
+          <form onSubmit={submitGithub} className="surface-panel space-y-4 p-5 sm:p-6" noValidate>
             <div className="flex items-center gap-2">
               <Github className="size-4" />
               <h2 className="text-lg font-semibold">GitHub submission</h2>
@@ -314,7 +314,7 @@ function DayPage() {
             )}
           </form>
 
-          <form onSubmit={submitLinkedin} className="surface-panel space-y-4 p-6" noValidate>
+          <form onSubmit={submitLinkedin} className="surface-panel space-y-4 p-5 sm:p-6" noValidate>
             <div className="flex items-center gap-2">
               <Linkedin className="size-4" />
               <h2 className="text-lg font-semibold">LinkedIn submission</h2>
@@ -339,7 +339,7 @@ function DayPage() {
           </form>
         </section>
 
-        <form onSubmit={saveReflection} className="surface-panel space-y-4 p-6" noValidate>
+        <form onSubmit={saveReflection} className="surface-panel space-y-4 p-5 sm:p-6" noValidate>
           <div className="flex items-center gap-2">
             <NotebookPen className="size-4" />
             <h2 className="text-lg font-semibold">Reflection journal</h2>
@@ -361,7 +361,7 @@ function DayPage() {
           </div>
         </form>
 
-        <section className="surface-panel p-6">
+        <section className="surface-panel p-5 sm:p-6">
           <h2 className="text-lg font-semibold">Complete Day {day}</h2>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {[
@@ -382,22 +382,22 @@ function DayPage() {
             ))}
           </ul>
 
-          <div className="mt-5 flex flex-wrap items-center gap-3">
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             {dayState.completed ? (
               <>
                 <span className="flex items-center gap-2 font-mono text-sm text-primary">
                   <PartyPopper className="size-4" /> Day {day} complete
                 </span>
-                <Button variant="outline" onClick={() => reopenDay(day)}>
+                <Button variant="outline" className="w-full sm:w-auto" onClick={() => reopenDay(day)}>
                   Reopen day
                 </Button>
               </>
             ) : (
-              <Button size="lg" disabled={!canComplete} onClick={finishDay}>
+              <Button size="lg" className="w-full sm:w-auto" disabled={!canComplete} onClick={finishDay}>
                 Complete Day {day}
               </Button>
             )}
-            <Button variant="ghost" onClick={() => navigate({ to: "/dashboard" })}>
+            <Button variant="ghost" className="w-full sm:w-auto" onClick={() => navigate({ to: "/dashboard" })}>
               Back to dashboard
             </Button>
           </div>
