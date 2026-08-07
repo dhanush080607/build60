@@ -50,7 +50,7 @@ export function Onboarding() {
   const finish = () => completeOnboarding(track ?? student.track, goal);
 
   return (
-    <div className="fixed inset-0 z-[60] overflow-y-auto bg-background/95 backdrop-blur-md">
+    <div className="fixed inset-0 z-[100] overflow-y-auto bg-background">
       <div className="grid-backdrop pointer-events-none absolute inset-0 opacity-60 animate-grid-drift" />
       <div className="relative mx-auto flex min-h-full w-full max-w-2xl flex-col justify-center px-5 py-10">
         {step > 0 && (
