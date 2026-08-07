@@ -1,0 +1,50 @@
+[
+  {
+    "id": "first_commit",
+    "name": "First Commit",
+    "description": "Submit your very first GitHub proof.",
+    "icon": "GitCommitHorizontal",
+    "metric": "submissions",
+    "target": 1
+  },
+  {
+    "id": "week_warrior",
+    "name": "7 Day Warrior",
+    "description": "Complete 7 challenge days.",
+    "icon": "Flame",
+    "metric": "completedDays",
+    "target": 7
+  },
+  {
+    "id": "project_builder",
+    "name": "Project Builder",
+    "description": "Complete a full project block of 12 days.",
+    "icon": "Hammer",
+    "metric": "completedDays",
+    "target": 12
+  },
+  {
+    "id": "public_voice",
+    "name": "Public Voice",
+    "description": "Share 5 LinkedIn build posts.",
+    "icon": "Megaphone",
+    "metric": "linkedinPosts",
+    "target": 5
+  },
+  {
+    "id": "deep_thinker",
+    "name": "Deep Thinker",
+    "description": "Write 10 daily reflections.",
+    "icon": "NotebookPen",
+    "metric": "reflections",
+    "target": 10
+  },
+  {
+    "id": "momentum_master",
+    "name": "Momentum Master",
+    "description": "Hit a perfect 100 momentum score.",
+    "icon": "Rocket",
+    "metric": "perfectDays",
+    "target": 1
+  }
+]
