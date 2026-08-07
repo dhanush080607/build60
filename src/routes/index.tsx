@@ -14,6 +14,8 @@ import { useRef } from "react";
 import { toast } from "sonner";
 
 import { AICoach } from "@/components/challenge/AICoach";
+import { Onboarding } from "@/components/challenge/Onboarding";
+import { StreakFlame } from "@/components/challenge/StreakFlame";
 import { Button } from "@/components/ui/button";
 import { challenge, useChallenge, useStats } from "@/lib/challenge-store";
 import { cn } from "@/lib/utils";
@@ -21,13 +23,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "60 Days of Shipping — Student Coding Challenge" },
+      { title: "ABTalks — 60 Day Student Coding Challenge" },
       {
         name: "description",
         content:
-          "Join the 60 day student build challenge: daily tasks, GitHub and LinkedIn proof, streaks, momentum score and achievements.",
+          "ABTalks is a 60 day student build challenge: daily tasks, GitHub and LinkedIn proof, streak flame, momentum score and achievements.",
       },
-      { property: "og:title", content: "60 Days of Shipping — Student Coding Challenge" },
+      { property: "og:title", content: "ABTalks — 60 Day Student Coding Challenge" },
       {
         property: "og:description",
         content: "Daily builds, public proof, real momentum. Start your 60 day streak today.",
@@ -52,22 +54,24 @@ function Landing() {
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <Link to="/" className="flex items-center gap-2 font-mono text-sm font-semibold">
-            <span className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-              60
+      <Onboarding />
+      <header className="sticky top-0 z-40 border-b border-border bg-background/70 backdrop-blur-xl">
+        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-5 sm:py-4">
+          <Link to="/" className="flex min-w-0 items-center gap-2 font-mono text-sm font-semibold">
+            <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
+              AB
             </span>
-            days_of_shipping
+            <span className="truncate">abtalks</span>
           </Link>
-          <nav className="flex items-center gap-2">
+          <nav className="flex shrink-0 items-center gap-1 sm:gap-2">
             <Link to="/dashboard">
               <Button variant="ghost" size="sm">
                 Dashboard
               </Button>
             </Link>
             <Button size="sm" onClick={start}>
-              Start My Challenge
+              <span className="hidden sm:inline">Start My Challenge</span>
+              <span className="sm:hidden">Start</span>
             </Button>
           </nav>
         </div>
@@ -75,41 +79,65 @@ function Landing() {
 
       <main>
         <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-          <div className="mx-auto max-w-6xl px-5 py-24">
-            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 font-mono text-xs text-muted-foreground">
+          <div className="grid-backdrop pointer-events-none absolute inset-0 opacity-70" />
+          <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-5 sm:py-24">
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 font-mono text-[11px] text-muted-foreground sm:text-xs animate-blur-in">
               <Flame className="size-3.5 text-primary" />
               Cohort 04 · {challenge.totalDays} days · 4 tracks
             </p>
-            <h1 className="max-w-3xl text-5xl font-bold leading-[1.05] sm:text-6xl">
+            <h1
+              className="max-w-3xl text-[2.6rem] font-bold leading-[1.05] sm:text-6xl lg:text-7xl animate-blur-in"
+              style={{ animationDelay: "80ms" }}
+            >
               Ship something real, <span className="text-gradient">every single day</span>.
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              A 60 day build challenge for students. Daily tasks, public GitHub and LinkedIn proof,
-              momentum scoring and badges that actually mean something.
+            <p
+              className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg animate-blur-in"
+              style={{ animationDelay: "160ms" }}
+            >
+              ABTalks is a 60 day build challenge for students. Daily tasks, public GitHub and
+              LinkedIn proof, momentum scoring and badges that actually mean something.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" onClick={start}>
+            <div
+              className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap animate-blur-in"
+              style={{ animationDelay: "240ms" }}
+            >
+              <Button size="lg" className="w-full sm:w-auto" onClick={start}>
                 Start My Challenge <ArrowRight className="size-4" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
+                className="w-full sm:w-auto"
                 onClick={() => tracksRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
               >
                 Explore Tracks
               </Button>
             </div>
 
-            <dl className="mt-14 grid max-w-2xl grid-cols-3 gap-4">
+            <div className="mt-12 flex items-center gap-4 rounded-2xl border border-border bg-card/60 p-4 sm:max-w-md">
+              <StreakFlame streak={hydrated ? stats.streak : 0} />
+              <div className="min-w-0">
+                <p className="font-mono text-xs text-muted-foreground">your streak flame</p>
+                <p className="text-xl font-bold">
+                  {hydrated ? stats.streak : 0} day{stats.streak === 1 ? "" : "s"}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Intensity grows with every day you ship.
+                </p>
+              </div>
+            </div>
+
+            <dl className="mt-8 grid max-w-2xl grid-cols-3 gap-3 sm:gap-4">
               {[
                 { label: "Days completed", value: hydrated ? stats.completedCount : 0, icon: CheckCircle2 },
                 { label: "Current streak", value: hydrated ? stats.streak : 0, icon: Flame },
                 { label: "Badges unlocked", value: hydrated ? stats.unlocked.length : 0, icon: Trophy },
               ].map((s) => (
-                <div key={s.label} className="surface-panel p-4">
+                <div key={s.label} className="surface-panel p-3 sm:p-4 card-hover">
                   <s.icon className="mb-2 size-4 text-primary" />
-                  <dd className="font-mono text-2xl font-semibold">{s.value}</dd>
-                  <dt className="text-xs text-muted-foreground">{s.label}</dt>
+                  <dd className="font-mono text-xl font-semibold sm:text-2xl">{s.value}</dd>
+                  <dt className="text-[11px] leading-tight text-muted-foreground sm:text-xs">{s.label}</dt>
                 </div>
               ))}
             </dl>
@@ -117,10 +145,10 @@ function Landing() {
         </section>
 
         <section ref={tracksRef} id="tracks" className="scroll-mt-20 border-t border-border">
-          <div className="mx-auto max-w-6xl px-5 py-20">
-            <div className="flex items-end justify-between gap-4">
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-5 sm:py-20">
+            <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <h2 className="text-3xl font-bold">Challenge tracks</h2>
+                <h2 className="text-2xl font-bold sm:text-3xl">Challenge tracks</h2>
                 <p className="mt-2 text-muted-foreground">
                   Pick the lane you want to be known for. You can switch later.
                 </p>
@@ -132,7 +160,7 @@ function Landing() {
               )}
             </div>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
               {challenge.tracks.map((track) => {
                 const Icon = ICONS[track.icon as keyof typeof ICONS] ?? Target;
                 const selected = state.selectedTrack === track.id;
@@ -147,7 +175,7 @@ function Landing() {
                     }}
                     aria-pressed={selected}
                     className={cn(
-                      "group surface-panel p-5 text-left transition-all duration-200 hover:-translate-y-1 hover:border-primary/60",
+                      "group surface-panel p-5 text-left card-hover",
                       selected && "border-primary",
                     )}
                     style={selected ? { boxShadow: "var(--shadow-glow)" } : undefined}
@@ -171,8 +199,8 @@ function Landing() {
               })}
             </div>
 
-            <div className="mt-10">
-              <Button variant="secondary" onClick={start}>
+            <div className="mt-8 sm:mt-10">
+              <Button variant="secondary" className="w-full sm:w-auto" onClick={start}>
                 Continue to dashboard <ArrowRight className="size-4" />
               </Button>
             </div>
@@ -180,7 +208,7 @@ function Landing() {
         </section>
 
         <section className="border-t border-border bg-card/40">
-          <div className="mx-auto grid max-w-6xl gap-6 px-5 py-20 md:grid-cols-3">
+          <div className="mx-auto grid max-w-6xl gap-4 px-4 py-14 sm:gap-6 sm:px-5 sm:py-20 md:grid-cols-3">
             {[
               {
                 title: "Proof, not promises",
@@ -195,7 +223,7 @@ function Landing() {
                 body: "First Commit, 7 Day Warrior, Project Builder and more — each with visible progress.",
               },
             ].map((f) => (
-              <div key={f.title} className="surface-panel p-6">
+              <div key={f.title} className="surface-panel p-5 sm:p-6 card-hover">
                 <h3 className="font-semibold">{f.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{f.body}</p>
               </div>
@@ -204,8 +232,8 @@ function Landing() {
         </section>
       </main>
 
-      <footer className="border-t border-border py-8 text-center font-mono text-xs text-muted-foreground">
-        built for students who ship · {challenge.name}
+      <footer className="border-t border-border px-4 py-8 text-center font-mono text-xs text-muted-foreground">
+        built for students who ship · ABTalks · {challenge.name}
       </footer>
 
       <AICoach />
