@@ -1,0 +1,75 @@
+{
+  "name": "60 Days of Shipping",
+  "totalDays": 60,
+  "currentDay": 12,
+  "tracks": [
+    {
+      "id": "fullstack",
+      "name": "Full-Stack Web",
+      "tagline": "React, APIs and databases, end to end.",
+      "icon": "Layers",
+      "projects": 8,
+      "difficulty": "Intermediate"
+    },
+    {
+      "id": "ai",
+      "name": "AI Engineering",
+      "tagline": "LLM apps, RAG pipelines and agents.",
+      "icon": "Brain",
+      "projects": 6,
+      "difficulty": "Advanced"
+    },
+    {
+      "id": "dsa",
+      "name": "DSA & Interviews",
+      "tagline": "Daily problems with public write-ups.",
+      "icon": "Binary",
+      "projects": 10,
+      "difficulty": "Beginner"
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile Builds",
+      "tagline": "Cross-platform apps shipped weekly.",
+      "icon": "Smartphone",
+      "projects": 5,
+      "difficulty": "Intermediate"
+    }
+  ],
+  "days": [
+    {
+      "day": 12,
+      "title": "Build a Realtime Progress Tracker",
+      "focus": "State management & persistence",
+      "estimate": "2h 30m",
+      "brief": "Design a progress tracker component that survives reloads. Model the state carefully, persist it, then deploy the build and share what you learned publicly.",
+      "checklist": [
+        { "id": "c1", "label": "Read the daily brief and sketch the data model" },
+        { "id": "c2", "label": "Implement the tracker component with real state" },
+        { "id": "c3", "label": "Persist progress so a refresh keeps everything" },
+        { "id": "c4", "label": "Write tests or manually verify each interaction" },
+        { "id": "c5", "label": "Push a clean commit and deploy the build" }
+      ],
+      "resources": [
+        { "label": "Thinking in state", "url": "https://react.dev/learn/thinking-in-react" },
+        { "label": "Web Storage API", "url": "https://developer.mozilla.org/docs/Web/API/Web_Storage_API" }
+      ]
+    }
+  ],
+  "defaultDay": {
+    "title": "Daily Build Sprint",
+    "focus": "Ship something small and public",
+    "estimate": "2h 00m",
+    "brief": "Pick a scoped feature, build it end to end, commit it, and share the lesson you learned with your network.",
+    "checklist": [
+      { "id": "c1", "label": "Plan the scope for today's build" },
+      { "id": "c2", "label": "Implement the core feature" },
+      { "id": "c3", "label": "Test the happy path and edge cases" },
+      { "id": "c4", "label": "Commit and deploy" },
+      { "id": "c5", "label": "Share the learning publicly" }
+    ],
+    "resources": [
+      { "label": "Conventional commits", "url": "https://www.conventionalcommits.org" }
+    ]
+  }
+}
