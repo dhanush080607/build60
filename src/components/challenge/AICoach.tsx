@@ -39,7 +39,8 @@ export function AICoach() {
     setInput("");
     setThinking(true);
     window.setTimeout(() => {
-      const reply = SAMPLE_REPLIES[replyIndex.current % SAMPLE_REPLIES.length];
+      const reply =
+        SAMPLE_REPLIES[replyIndex.current % SAMPLE_REPLIES.length] ?? SAMPLE_REPLIES[0]!;
       replyIndex.current += 1;
       setMessages((m) => [...m, { id: nextId(), role: "coach", text: reply }]);
       setThinking(false);
